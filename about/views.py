@@ -1,4 +1,4 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render
 from django.contrib import messages
 from .models import About
 from .forms import CollaborateForm
@@ -6,6 +6,23 @@ from .forms import CollaborateForm
 
 # Create your views here.
 def about_me(request):
+    """
+    Renders the most recent About-me page
+    and allows user collaboration requests.
+
+    Displays a single instace of :model:`about.About`.
+
+    **Context:**
+
+    ``about``
+        The most recent instance of :model:`about.About`.
+    ``collaborate_form``
+        An instance of :form:`about.CollaborateForm`.
+
+    **Template:**
+
+    :template:`about/about_me.html`
+    """
     about = About.objects.order_by("-updated_on").first()
     # about = get_object_or_404(queryset)
     if request.method == "POST":
