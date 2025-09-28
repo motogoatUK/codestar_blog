@@ -26,3 +26,14 @@ class CollabFormTest(TestCase):
         self.assertIn(b'About Me', response.content)
         self.assertIsInstance(
             response.context['collaborate_form'], CollaborateForm)
+
+    def test_collaboration_form(self):
+        """Tests POST of collaboration form"""
+        post_data = {
+            'name': "Michael Caine",
+            'email': "doors@missingparts.co.uk",
+            'message': "BOOM!"
+        }
+        response = self.client.post(reverse('about'), post_data)
+        self.assertEqual(response.status_code, 200)
+        self.assertIn(b"Collaboration request received!", response.content)
